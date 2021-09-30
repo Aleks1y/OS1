@@ -15,10 +15,10 @@ void *thread_body(void *param) {
 }
 
 int main(int argc, char *argv[]) { 
-  pthread_c thread; 
+  pthread_t thread; 
   int code;
   
-  code = pthread_create(Sthread, NULL, thread_body, NULL); 
+  code = pthread_create(&thread, NULL, thread_body, NULL); 
   if (code!=0)	{
     char buf[256];
     strerror_r(code, buf, sizeof buf);
@@ -27,5 +27,5 @@ int main(int argc, char *argv[]) {
   }
   
   print_text("Parent"); 
-  pthread exit(NULL);
+  pthread_exit(NULL);
 }
