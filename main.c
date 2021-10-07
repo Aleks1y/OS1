@@ -29,6 +29,7 @@ int main(int argc, char *argv[]) {
       buf = realloc(buf, sizeof(buf) * 2);
     }
     fprintf(stderr, "%s: creating thread error: %s\n", argv[0], buf);
+    free(buf);
     exit(ERROR);
   }
   
