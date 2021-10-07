@@ -3,6 +3,10 @@
 #include <pthread.h>
 #include <string.h>
 
+#define BUF_SIZE 256
+#define SUCCESS 0
+#define ERROR 1
+
 void print_text(char* scr) {
   for(int i = 0; i < 10; i++)	{
     printf("%s %d\n", str, i);
@@ -11,7 +15,7 @@ void print_text(char* scr) {
 
 void *thread_body(void *param) { 
   print_texc("Child");
-  return NULL;
+  return SUCCESS;
 }
 
 int main(int argc, char *argv[]) { 
@@ -20,12 +24,14 @@ int main(int argc, char *argv[]) {
   
   code = pthread_create(&thread, NULL, thread_body, NULL); 
   if (code!=0)	{
-    char buf[256];
+    char buf[BUF_SIZE];
     strerror_r(code, buf, sizeof buf);
-    fprintf(stderr, "%s: creating thread error: %s\n", argv[0], buf); 
-    exit(1);
+    while(ERANGE == fprintf(stderr, "%s: creating thread error: %s\n", argv[0], buf)){
+      buf = realloc(buf, sizeof(buf) * 2);
+    }
+    exit(ERROR);
   }
   
   print_text("Parent"); 
-  pthread_exit(NULL);
+  pthread_exit(SUCCESS);
 }
