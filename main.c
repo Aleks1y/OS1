@@ -15,7 +15,7 @@ void print_text(char* str) {
 
 void *thread_body(void *param) { 
   print_text("Child");
-  return SUCCESS;
+  return NULL;
 }
 
 int main(int argc, char *argv[]) { 
@@ -23,7 +23,7 @@ int main(int argc, char *argv[]) {
   int code;
   
   code = pthread_create(&thread, NULL, thread_body, NULL); 
-  if (code!=0)	{
+  if (code! = SUCCESS)	{
     char* buf = malloc(BUF_SIZE);
     while(ERANGE == strerror_r(code, buf, sizeof buf)){
       buf = realloc(buf, sizeof(buf) * 2);
@@ -34,5 +34,5 @@ int main(int argc, char *argv[]) {
   }
   
   print_text("Parent"); 
-  pthread_exit(SUCCESS);
+  pthread_exit(NULL);
 }
