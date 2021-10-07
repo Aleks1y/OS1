@@ -7,14 +7,14 @@
 #define SUCCESS 0
 #define ERROR 1
 
-void print_text(char* scr) {
+void print_text(char* str) {
   for(int i = 0; i < 10; i++)	{
     printf("%s %d\n", str, i);
   }
 }
 
 void *thread_body(void *param) { 
-  print_texc("Child");
+  print_text("Child");
   return SUCCESS;
 }
 
@@ -24,7 +24,7 @@ int main(int argc, char *argv[]) {
   
   code = pthread_create(&thread, NULL, thread_body, NULL); 
   if (code!=0)	{
-    char buf[BUF_SIZE];
+    char* buf = malloc(BUF_SIZE);
     strerror_r(code, buf, sizeof buf);
     while(ERANGE == fprintf(stderr, "%s: creating thread error: %s\n", argv[0], buf)){
       buf = realloc(buf, sizeof(buf) * 2);
