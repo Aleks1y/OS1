@@ -25,10 +25,10 @@ int main(int argc, char *argv[]) {
   code = pthread_create(&thread, NULL, thread_body, NULL); 
   if (code!=0)	{
     char* buf = malloc(BUF_SIZE);
-    strerror_r(code, buf, sizeof buf);
-    while(ERANGE == fprintf(stderr, "%s: creating thread error: %s\n", argv[0], buf)){
+    while(ERANGE == strerror_r(code, buf, sizeof buf)){
       buf = realloc(buf, sizeof(buf) * 2);
     }
+    fprintf(stderr, "%s: creating thread error: %s\n", argv[0], buf);
     exit(ERROR);
   }
   
