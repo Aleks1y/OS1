@@ -23,7 +23,7 @@ int main(int argc, char *argv[]) {
   
   code = pthread_create(&thread, NULL, thread_body, NULL); 
   if (code! = SUCCESS)	{
-    perror("creating thread error");
+    perror("Creating thread error");
     exit(ERROR);
   }
   
