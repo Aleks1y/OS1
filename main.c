@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <pthread.h>
 
-#define BUF_SIZE 256
 #define SUCCESS 0
 #define ERROR 1
 
